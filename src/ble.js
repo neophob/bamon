@@ -11,7 +11,6 @@ module.exports = class BleBattery {
     }
 
     async connect() {
-        console.log(this)
         try {
             this.bleDevice = await navigator.bluetooth.requestDevice({
                 filters: [{ name: bleDeviceName }],
@@ -34,15 +33,25 @@ module.exports = class BleBattery {
             this.rxCharacteristic = await this.service.getCharacteristic(0xff01);
             debug('rxCharacteristic', this.rxCharacteristic);
             this.rxCharacteristic.addEventListener('characteristicvaluechanged', (event) => {
-                let value = event.target.value;
-                let a = [];
-                // Convert raw data bytes to hex values just for the sake of showing something.
-                // In the "real" world, you'd use data.getUint8, data.getUint16 or even
-                // TextDecoder to process raw data bytes.
-                for (let i = 0; i < value.byteLength; i++) {
-                  a.push('0x' + ('00' + value.getUint8(i).toString(16)).slice(-2));
+                const value = event.target.value;
+                const initialByte = value.getUint8(0);
+                if (initialByte === 0xdd) {
+                    const voltage = value.getUint16(4) * 0.01;
+                    const current = value.getInt16(6) * 0.01;
+                    const power = voltage * current;
+                    const capacityNow = value.getUint16(8) * 0.01;
+                    const capacityTotal = value.getUint16(10) * 0.01;
+                    const capacityPercent = Math.round((100.0/capacityTotal) * capacityNow);
+                    debug('---');
+                    debug('voltage', voltage);
+                    debug('current:', current);
+                    debug('power:', power);
+                    debug('capacity now:', capacityNow);
+                    debug('capacity total:', capacityTotal);
+                    debug('capacity percent:', capacityPercent);
+                    debug('cycles:', value.getUint16(12));
+                    debug('production_date:', value.getUint16(14));
                 }
-                debug('> ' + a.join(' '));
             });
             await this.rxCharacteristic.startNotifications();
             debug('> Notifications started');
@@ -51,6 +60,12 @@ module.exports = class BleBattery {
             debug('txCharacteristic', this.txCharacteristic);
 
             this.requestBasicInformation();
+            this.requestBasicInformation();
+
+            setInterval(() => {
+                this.requestBasicInformation();
+                this.requestBasicInformation();
+            }, 8000);
         } catch (error) {
             debug('ERROR: connection failed!', error);
             this.disconnect();
@@ -60,15 +75,19 @@ module.exports = class BleBattery {
     disconnect() {
         if (this.bleDevice?.gatt?.connected) {
             debug('Disconnect gatt server');
-            this.bleDevice.gatt.disconnect();
+            this.bleDevice.gatt?.disconnect();
         } else {
             debug('Disconnect failed, not connected');
         }
     }
 
     async requestBasicInformation() {
-        await this.txCharacteristic?.writeValue(requestBasicInformation);
-        debug('> Sent requestBasicInformation');
+        try {
+            await this.txCharacteristic?.writeValue(requestBasicInformation);
+            debug('> Sent requestBasicInformation');
+        } catch(error) {
+            debug('ERROR: requestBasicInformation failed!', error);
+        }
     }
 
 }

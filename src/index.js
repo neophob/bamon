@@ -6,6 +6,16 @@ const H = 512;
 const ble = new BleBattery();
 console.info('Note: to see log, enable verbose level in Chrome!');
 
+/*
+        0        263      526      799
+        +--------------------------+
+        |B 13.2V  | -0.9A  |B      |
+  158   +------------------+       |
+        |                  |  98%  |
+        |      -11.4W      |       |
+        | .|..|...||..|..| |.|..|..|
+  479   +--------------------------+
+*/
 function rndr() {
   console.info('Emulator render');
   //return requestAnimationFrame(rndr);
