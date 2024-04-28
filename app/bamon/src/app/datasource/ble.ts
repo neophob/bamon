@@ -22,8 +22,6 @@ export class BleBattery {
   private txCharacteristic?: BluetoothRemoteGATTCharacteristic;
   private intervalId?: any;
 
-  constructor(private logger: ConsoleLogger) {}
-
   async connect(): Promise<void> {
     try {
       this.bleDevice = await navigator.bluetooth.requestDevice({
@@ -31,28 +29,28 @@ export class BleBattery {
         optionalServices: [aks1200Characteristics],
       });
       this.bleDevice.addEventListener('gattserverdisconnected', (event) => {
-        this.logger.error('ERROR: Bluetooth Device disconnected', event);
+        ConsoleLogger.warning('Bluetooth Device disconnected', event);
         this.disconnect();
       });
 
-      this.logger.debug('device found', this.bleDevice);
+      ConsoleLogger.debug('device found', this.bleDevice);
 
-      this.logger.debug('connect to device');
+      ConsoleLogger.debug('connect to device');
       this.server = await this.bleDevice.gatt?.connect();
       if (!this.server) {
-        this.logger.error('ERROR: connection failed, server is undefined');
+        ConsoleLogger.error('connection failed, server is undefined');
         this.disconnect();
         return;
       }
-      this.logger.debug('connected', this.server);
+      ConsoleLogger.debug('connected', this.server);
 
       this.service = await this.server.getPrimaryService(
         aks1200Characteristics
       );
-      this.logger.debug('service', this.service);
+      ConsoleLogger.debug('service', this.service);
 
       this.rxCharacteristic = await this.service.getCharacteristic(0xff01);
-      this.logger.debug('rxCharacteristic', this.rxCharacteristic);
+      ConsoleLogger.debug('rxCharacteristic', this.rxCharacteristic);
       this.rxCharacteristic.addEventListener(
         'characteristicvaluechanged',
         (event) => {
@@ -68,10 +66,10 @@ export class BleBattery {
         }
       );
       await this.rxCharacteristic.startNotifications();
-      this.logger.debug('> Notifications started');
+      ConsoleLogger.debug('Notifications started');
 
       this.txCharacteristic = await this.service.getCharacteristic(0xff02);
-      this.logger.debug('txCharacteristic', this.txCharacteristic);
+      ConsoleLogger.debug('txCharacteristic', this.txCharacteristic);
 
       setTimeout(() => {
         this.requestBasicInformation();
@@ -81,7 +79,7 @@ export class BleBattery {
         this.requestBasicInformation();
       }, dataFetcherIntervalS * 1000);
     } catch (error) {
-      this.logger.error('connection failed!', error);
+      ConsoleLogger.error('connection failed!', error);
       this.disconnect();
     }
   }
@@ -89,19 +87,19 @@ export class BleBattery {
   disconnect(): void {
     clearInterval(this.intervalId);
     if (this.bleDevice?.gatt?.connected) {
-      this.logger.debug('Disconnect gatt server');
+      ConsoleLogger.debug('Disconnect gatt server');
       this.bleDevice.gatt?.disconnect();
     } else {
-      this.logger.debug('Disconnect failed, not connected');
+      ConsoleLogger.debug('Disconnect failed, not connected');
     }
   }
 
   async requestBasicInformation(): Promise<void> {
     try {
       await this.txCharacteristic?.writeValue(requestBasicInformation);
-      this.logger.debug('> Sent requestBasicInformation');
+      ConsoleLogger.debug('Sent requestBasicInformation');
     } catch (error) {
-      this.logger.error('requestBasicInformation failed!', error);
+      ConsoleLogger.error('requestBasicInformation failed!', error);
     }
   }
 }

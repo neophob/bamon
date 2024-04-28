@@ -1,18 +1,18 @@
 import { Injectable } from "@angular/core";
 
 @Injectable({
-  providedIn: 'root',
+  providedIn: 'root'
 })
 export class ConsoleLogger {
-  debug(template: string, ...optionalParams: any[]): void {
-    console.log(template, ...optionalParams);
+  static debug(template: string, ...optionalParams: any[]): void {
+    console.log('D: ' + template, ...optionalParams);
   }
 
-  warning(template: string, ...optionalParams: any[]): void {
-    console.warn(template, ...optionalParams);
+  static warning(template: string, ...optionalParams: any[]): void {
+    console.warn('W: ' + template, ...optionalParams);
   }
 
-  error(template: string, ...optionalParams: any[]): void {
-    console.error(template, ...optionalParams);
+  static error(template: string, ...optionalParams: any[]): void {
+    console.error('E: ' + template, ...optionalParams);
   }
 }
