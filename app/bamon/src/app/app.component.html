@@ -78,11 +78,10 @@
       <p>Congratulations! Your app is running. 🎉</p>
     </div>
 
-    <div class="example-button-row">
-      <button mat-stroked-button color="primary">Connect</button>
-      <button mat-stroked-button>Disconnect</button>
+    <div class="container">
+      <button type="button" (click)="connect()">Connect</button>
+      <button type="button" (click)="disconnect()">Disconnect</button>
     </div>
-
   </div>
 </main>
 
