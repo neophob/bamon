@@ -23,6 +23,10 @@ export class BleBattery {
   private intervalId?: any;
 
   async connect(): Promise<void> {
+    if (!navigator || !navigator.bluetooth) {
+      ConsoleLogger.error('No navigator.bluetooth found!');
+      return;
+    }
     try {
       this.bleDevice = await navigator.bluetooth.requestDevice({
         filters: [{ name: bleDeviceName }],
