@@ -3,6 +3,28 @@ const debug = require('debug')('BleBattery');
 const bleDeviceName = 'AK12100-220600023';
 const aks1200Characteristics = '0000ff00-0000-1000-8000-00805f9b34fb';
 const requestBasicInformation = new Uint8Array([0xdd, 0xa5, 0x03, 0x00, 0xff, 0xfd, 0x77 ]);
+const delayFirstRequestS = 1;
+const dataFetcherIntervalS = 8;
+
+class DataSnapshot {
+    constructor(value) {
+        this.voltage = value.getUint16(4) * 0.01;
+        this.current = value.getInt16(6) * 0.01;
+        this.power = this.voltage * this.current;
+        this.capacityNow = value.getUint16(8) * 0.01;
+        this.capacityTotal = value.getUint16(10) * 0.01;
+        this.capacityPercent = Math.round((100.0/this.capacityTotal) * this.capacityNow);
+        this.cycles = value.getUint16(12);
+        this.timestamp = Date.now();
+        debug('voltage', this.voltage);
+        debug('current:', this.current);
+        debug('power:', this.power);
+        debug('capacity now:', this.capacityNow);
+        debug('capacity total:', this.capacityTotal);
+        debug('capacity percent:', this.capacityPercent);
+        debug('cycles:', cycles);
+    }
+}
 
 module.exports = class BleBattery {
 
@@ -34,23 +56,9 @@ module.exports = class BleBattery {
             debug('rxCharacteristic', this.rxCharacteristic);
             this.rxCharacteristic.addEventListener('characteristicvaluechanged', (event) => {
                 const value = event.target.value;
-                const initialByte = value.getUint8(0);
-                if (initialByte === 0xdd) {
-                    const voltage = value.getUint16(4) * 0.01;
-                    const current = value.getInt16(6) * 0.01;
-                    const power = voltage * current;
-                    const capacityNow = value.getUint16(8) * 0.01;
-                    const capacityTotal = value.getUint16(10) * 0.01;
-                    const capacityPercent = Math.round((100.0/capacityTotal) * capacityNow);
-                    debug('---');
-                    debug('voltage', voltage);
-                    debug('current:', current);
-                    debug('power:', power);
-                    debug('capacity now:', capacityNow);
-                    debug('capacity total:', capacityTotal);
-                    debug('capacity percent:', capacityPercent);
-                    debug('cycles:', value.getUint16(12));
-                    debug('production_date:', value.getUint16(14));
+                if (value.getUint8(0) === 0xDD) {
+                    //TODO use this in data holder structure
+                    const data = new DataSnapshot(value);
                 }
             });
             await this.rxCharacteristic.startNotifications();
@@ -59,13 +67,13 @@ module.exports = class BleBattery {
             this.txCharacteristic = await this.service.getCharacteristic(0xff02);
             debug('txCharacteristic', this.txCharacteristic);
 
-            this.requestBasicInformation();
-            this.requestBasicInformation();
+            setTimeout(() => {
+                this.requestBasicInformation();
+            }, delayFirstRequestS * 1000);
 
-            setInterval(() => {
+            this.intervalId = setInterval(() => {
                 this.requestBasicInformation();
-                this.requestBasicInformation();
-            }, 8000);
+            }, dataFetcherIntervalS * 1000);
         } catch (error) {
             debug('ERROR: connection failed!', error);
             this.disconnect();
@@ -73,6 +81,7 @@ module.exports = class BleBattery {
     }
 
     disconnect() {
+        clearInterval(this.intervalId);
         if (this.bleDevice?.gatt?.connected) {
             debug('Disconnect gatt server');
             this.bleDevice.gatt?.disconnect();
