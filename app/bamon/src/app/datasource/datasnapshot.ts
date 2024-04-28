@@ -1,8 +1,5 @@
-import { Injectable, inject } from '@angular/core';
-
-import debugModule from 'debug';
+import { Injectable } from '@angular/core';
 import { ConsoleLogger } from './logger.service';
-const debug = debugModule('DataSnapshot');
 
 @Injectable({
   providedIn: 'root',
