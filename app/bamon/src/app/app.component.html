@@ -27,7 +27,6 @@
 </style>
 
 <main class="main">
-  <div class="content">
     <svg
       xmlns="http://www.w3.org/2000/svg"
       viewBox="0 0 150 50"
@@ -55,16 +54,23 @@
       <mat-progress-bar mode="indeterminate"></mat-progress-bar>
     }
 
+    <mat-grid-list cols="4" [style.background]="'skyblue'">
+      <mat-grid-tile>Tile 1 </mat-grid-tile>
+      <mat-grid-tile [style.background]="'red'">Tile 2 </mat-grid-tile>
+      <mat-grid-tile>Tile 3 </mat-grid-tile>
+      <mat-grid-tile>Tile 4 </mat-grid-tile>
+    </mat-grid-list>
+
     @if (connected) {
       🔥
       <h1 class="display-1">
-        Voltage: {{ voltage }}V
+        Voltage: {{ voltage.toFixed(1) }}V
       </h1>
       <h1 class="display-1">
-        Current: {{ current }}A
+        Current: {{ current.toFixed(1) }}A
       </h1>
       <h1 class="display-1">
-        Power: {{ power }}W
+        Power: {{ power.toFixed(1) }}W
       </h1>
       <h1 class="display-1">
         Capacity: {{ capacityTotal }}%
@@ -72,7 +78,6 @@
     } @else {
       🌧️
     }
-  </div>
 </main>
 
 <router-outlet />

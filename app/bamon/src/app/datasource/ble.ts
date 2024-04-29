@@ -70,6 +70,8 @@ export class BleBattery {
             characteristic.value &&
             characteristic.value.getUint8(0) === 0xdd
           ) {
+            this.connecting.set(false);
+            this.connected.set(true);
             this.signalData.set(new DataSnapshot(characteristic.value));
           }
         }
@@ -87,8 +89,6 @@ export class BleBattery {
       this.intervalId = setInterval(() => {
         this.requestBasicInformation();
       }, dataFetcherIntervalS * 1000);
-      this.connecting.set(false);
-      this.connected.set(true);
     } catch (error) {
       ConsoleLogger.error('connection failed!', error);
       this.disconnect();

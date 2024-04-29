@@ -20,9 +20,10 @@ export class DataSnapshot {
   }
 
   constructor(value: DataView) {
-    this.voltage = value.getUint16(4) * 0.01;
-    this.current = value.getInt16(6) * 0.01;
-    this.power = this.voltage * this.current;
+    //TODO round or use string?
+    this.voltage = (value.getUint16(4) * 0.01);
+    this.current = (value.getInt16(6) * 0.01);
+    this.power = Math.round(this.voltage * this.current);
     this.capacityNow = value.getUint16(8) * 0.01;
     this.capacityTotal = value.getUint16(10) * 0.01;
     this.capacityPercent = Math.round(
