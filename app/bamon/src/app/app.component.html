@@ -55,25 +55,23 @@
       <mat-progress-bar mode="indeterminate"></mat-progress-bar>
     }
 
-    <h1 class="display-1">
-      @if (connected) {
-        🔥
-        <h1 class="display-1">
-          Voltage: {{ voltage }}V
-        </h1>
-        <h1 class="display-1">
-          Current: {{ current }}A
-        </h1>
-        <h1 class="display-1">
-          Power: {{ power }}W
-        </h1>
-        <h1 class="display-1">
-          Capacity: {{ capacityTotal }}%
-        </h1>
-      } @else {
-        🌧️
-      }
-    </h1>
+    @if (connected) {
+      🔥
+      <h1 class="display-1">
+        Voltage: {{ voltage }}V
+      </h1>
+      <h1 class="display-1">
+        Current: {{ current }}A
+      </h1>
+      <h1 class="display-1">
+        Power: {{ power }}W
+      </h1>
+      <h1 class="display-1">
+        Capacity: {{ capacityTotal }}%
+      </h1>
+    } @else {
+      🌧️
+    }
   </div>
 </main>
 
