@@ -97,14 +97,14 @@ export class BleBattery {
 
   disconnect(): void {
     clearInterval(this.intervalId);
-    this.connecting.set(false);
-    this.connected.set(false);
     if (this.bleDevice?.gatt?.connected) {
       ConsoleLogger.debug('Disconnect gatt server');
-      this.bleDevice.gatt?.disconnect();
     } else {
       ConsoleLogger.debug('Disconnect failed, not connected');
     }
+    this.bleDevice?.gatt?.disconnect();
+    this.connecting.set(false);
+    this.connected.set(false);
   }
 
   async requestBasicInformation(): Promise<void> {
