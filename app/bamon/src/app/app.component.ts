@@ -1,6 +1,7 @@
 import { Component, effect } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { MatButtonModule } from '@angular/material/button';
+import { MatProgressBar } from '@angular/material/progress-bar';
 import { BleBattery } from './datasource/ble';
 
 /*
@@ -17,7 +18,7 @@ import { BleBattery } from './datasource/ble';
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [RouterOutlet, MatButtonModule],
+  imports: [RouterOutlet, MatButtonModule, MatProgressBar],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css'
 })

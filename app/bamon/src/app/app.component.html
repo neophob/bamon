@@ -50,11 +50,19 @@
       <button mat-flat-button color="warn" type="button" (click)="disconnect()">Disconnect</button>
     </div>
 
-    {{ voltage }}V
-    {{ current }}A
+    @if (connecting){
+      <mat-progress-bar mode="indeterminate"></mat-progress-bar>
+    }
+
+    <h1 class="display-1">
+      {{ voltage }}V
+    </h1>
+    <h1 class="display-4">
+      {{ current }}A
+    </h1>
     {{ power }}W
     {{ capacityTotal }}%
-    connecting: {{ connecting }}
+
     connected: {{ connected }}
   </div>
 </main>
