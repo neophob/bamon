@@ -56,19 +56,24 @@
     }
 
     <h1 class="display-1">
-      Voltage: {{ voltage }}V
+      @if (connected) {
+        🔥
+        <h1 class="display-1">
+          Voltage: {{ voltage }}V
+        </h1>
+        <h1 class="display-1">
+          Current: {{ current }}A
+        </h1>
+        <h1 class="display-1">
+          Power: {{ power }}W
+        </h1>
+        <h1 class="display-1">
+          Capacity: {{ capacityTotal }}%
+        </h1>
+      } @else {
+        🌧️
+      }
     </h1>
-    <h1 class="display-1">
-      Current: {{ current }}A
-    </h1>
-    <h1 class="display-1">
-      Power: {{ power }}W
-    </h1>
-    <h1 class="display-1">
-      Capacity: {{ capacityTotal }}%
-    </h1>
-
-    connected: {{ connected }}
   </div>
 </main>
 
