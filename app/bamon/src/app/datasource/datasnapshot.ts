@@ -14,7 +14,6 @@ export class DataSnapshot {
   public readonly capacityPercent: number;
   public readonly cycles: number;
   public readonly timestamp: number;
-  private logger: ConsoleLogger|undefined;
 
   static default(): DataSnapshot {
     return new DataSnapshot(new DataView(new ArrayBuffer(16)));

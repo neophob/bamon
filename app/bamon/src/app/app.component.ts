@@ -26,6 +26,8 @@ export class AppComponent {
   current = 0;
   power = 0;
   capacityTotal = 0;
+  connected = false;
+  connecting = false;
 
   constructor(private bleBattery: BleBattery) {
     effect(() => {
@@ -35,6 +37,8 @@ export class AppComponent {
       this.current = data.current;
       this.power = data.power;
       this.capacityTotal = data.capacityTotal;
+      this.connecting = this.bleBattery.connecting();
+      this.connected = this.bleBattery.connected();
     });
   }
 

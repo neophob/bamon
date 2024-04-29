@@ -22,13 +22,18 @@ export class BleBattery {
   private txCharacteristic?: BluetoothRemoteGATTCharacteristic;
   private intervalId?: any;
   public signalData: WritableSignal<DataSnapshot> = signal(DataSnapshot.default());
+  public connecting: WritableSignal<boolean> = signal(false);
+  public connected: WritableSignal<boolean> = signal(false);
 
   async connect(): Promise<void> {
+    this.connecting.set(false);
+    this.connected.set(false);
     if (!navigator || !navigator.bluetooth) {
       ConsoleLogger.error('No navigator.bluetooth found!');
       return;
     }
     try {
+      this.connecting.set(true);
       this.bleDevice = await navigator.bluetooth.requestDevice({
         filters: [{ name: bleDeviceName }],
         optionalServices: [aks1200Characteristics],
@@ -82,6 +87,8 @@ export class BleBattery {
       this.intervalId = setInterval(() => {
         this.requestBasicInformation();
       }, dataFetcherIntervalS * 1000);
+      this.connecting.set(false);
+      this.connected.set(true);
     } catch (error) {
       ConsoleLogger.error('connection failed!', error);
       this.disconnect();
@@ -90,6 +97,8 @@ export class BleBattery {
 
   disconnect(): void {
     clearInterval(this.intervalId);
+    this.connecting.set(false);
+    this.connected.set(false);
     if (this.bleDevice?.gatt?.connected) {
       ConsoleLogger.debug('Disconnect gatt server');
       this.bleDevice.gatt?.disconnect();
