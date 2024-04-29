@@ -1,83 +1,83 @@
-<style>
-
-  main {
-    width: 100%;
-    min-height: 100%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    padding: 1rem;
-    box-sizing: inherit;
-    position: relative;
-  }
-
-  @media screen and (max-width: 650px) {
-    .content {
-      flex-direction: column;
-      width: max-content;
-    }
-
-    .divider {
-      height: 1px;
-      width: 100%;
-      background: var(--red-to-pink-to-purple-horizontal-gradient);
-      margin-block: 1.5rem;
-    }
-  }
-</style>
-
 <main class="main">
-    <svg
-      xmlns="http://www.w3.org/2000/svg"
-      viewBox="0 0 150 50"
-      fill="none"
-      class="bamon-logo"
-    >
-      <defs>
-        <linearGradient id="b" x1="0%" y1="0%" x2="100%" y2="100%">
-          <stop offset="0%" stop-color="#ff0000" />
-          <stop offset="100%" stop-color="#00ff00" />
-        </linearGradient>
-      </defs>
-      <text x="10" y="35" font-family="Roboto" font-size="40" font-weight="bold" fill="url(#b)">
-        bamon
-      </text>
-    </svg>
+  @if (connecting) {
+    <mat-progress-bar mode="indeterminate"></mat-progress-bar>
+  }
 
-    <div class="container">
-      <button mat-flat-button color="primary" type="button" (click)="connect()">Connect</button>
-      <button mat-flat-button color="warn" type="button" (click)="disconnect()">Disconnect</button>
-    </div>
+    <mat-grid-list cols="3" rowHeight="100px">
+      <mat-grid-tile
+      [colspan]="3"
+      [rowspan]="1"
+      [style.background]="'lightyellow'">
+        <div class="container">
+          <svg
+          xmlns="http://www.w3.org/2000/svg"
+          viewBox="0 0 150 50"
+          fill="none"
+          class="bamon-logo"
+        >
+          <defs>
+            <linearGradient id="b" x1="0%" y1="0%" x2="100%" y2="100%">
+              <stop offset="0%" stop-color="#ff0000" />
+              <stop offset="100%" stop-color="#00ff00" />
+            </linearGradient>
+          </defs>
+          <text x="10" y="35" font-family="Roboto" font-size="40" font-weight="bold" fill="url(#b)">
+            bamon
+          </text>
+          </svg>
 
-    @if (connecting) {
-      <mat-divider></mat-divider>
-      <mat-progress-bar mode="indeterminate"></mat-progress-bar>
-    }
+          <button mat-flat-button color="primary" type="button" (click)="connect()">Connect</button>
+          <button mat-flat-button color="warn" type="button" (click)="disconnect()">Disconnect</button>
+        </div>
 
-    <mat-grid-list cols="4" [style.background]="'skyblue'">
-      <mat-grid-tile>Tile 1 </mat-grid-tile>
-      <mat-grid-tile [style.background]="'red'">Tile 2 </mat-grid-tile>
-      <mat-grid-tile>Tile 3 </mat-grid-tile>
-      <mat-grid-tile>Tile 4 </mat-grid-tile>
-    </mat-grid-list>
+      </mat-grid-tile>
 
-    @if (connected) {
-      🔥
-      <h1 class="display-1">
-        Voltage: {{ voltage.toFixed(1) }}V
-      </h1>
-      <h1 class="display-1">
-        Current: {{ current.toFixed(1) }}A
-      </h1>
-      <h1 class="display-1">
-        Power: {{ power.toFixed(1) }}W
-      </h1>
-      <h1 class="display-1">
-        Capacity: {{ capacityTotal }}%
-      </h1>
-    } @else {
-      🌧️
-    }
+    <mat-grid-tile
+        [colspan]="1"
+        [rowspan]="1"
+        [style.background]="'lightblue'">
+        @if (connected) {
+          <h1 class="display-1">
+            Voltage: {{ voltage.toFixed(1) }}V
+          </h1>
+        }
+      </mat-grid-tile>
+
+      <mat-grid-tile
+        [colspan]="1"
+        [rowspan]="1"
+        [style.background]="'lightpink'">
+        @if (connected) {
+          <h1 class="display-1">
+            Current: {{ current.toFixed(1) }}A
+          </h1>
+        }
+      </mat-grid-tile>
+
+      <mat-grid-tile
+        [colspan]="1"
+        [rowspan]="2"
+        [style.background]="'lightgreen'">
+        @if (connected) {
+          <h1 class="display-1">
+            Capacity: {{ capacityTotal }}%
+          </h1>
+        }
+      </mat-grid-tile>
+
+      <mat-grid-tile
+        [colspan]="2"
+        [rowspan]="1"
+        [style.background]="'#DDBDF1'">
+        @if (connected) {
+          <h1 class="display-1">
+            Power: {{ power.toFixed(1) }}W
+          </h1>
+        }
+      </mat-grid-tile>
+
+  </mat-grid-list>
+
 </main>
 
 <router-outlet />
