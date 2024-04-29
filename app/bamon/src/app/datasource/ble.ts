@@ -1,5 +1,5 @@
 /// <reference types="web-bluetooth" />
-import { Injectable } from '@angular/core';
+import { Injectable, Signal, WritableSignal, signal } from '@angular/core';
 import { DataSnapshot } from './datasnapshot';
 import { ConsoleLogger } from './logger.service';
 
@@ -21,6 +21,7 @@ export class BleBattery {
   private rxCharacteristic?: BluetoothRemoteGATTCharacteristic;
   private txCharacteristic?: BluetoothRemoteGATTCharacteristic;
   private intervalId?: any;
+  public signalData: WritableSignal<DataSnapshot> = signal(DataSnapshot.default());
 
   async connect(): Promise<void> {
     if (!navigator || !navigator.bluetooth) {
@@ -64,8 +65,7 @@ export class BleBattery {
             characteristic.value &&
             characteristic.value.getUint8(0) === 0xdd
           ) {
-            //TODO use this in data holder structure
-            const data = new DataSnapshot(characteristic.value);
+            this.signalData.set(new DataSnapshot(characteristic.value));
           }
         }
       );

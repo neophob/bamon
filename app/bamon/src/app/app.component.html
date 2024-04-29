@@ -74,7 +74,7 @@
           <clipPath id="a"><path fill="#fff" d="M0 0h982v239H0z" /></clipPath>
         </defs>
       </svg>
-      <h1>Hello, {{ title }}</h1>
+      <h1>Hello,foo</h1>
       <p>Congratulations! Your app is running. 🎉</p>
     </div>
 
@@ -82,6 +82,11 @@
       <button mat-flat-button color="primary" type="button" (click)="connect()">Connect</button>
       <button mat-flat-button color="warn" type="button" (click)="disconnect()">Disconnect</button>
     </div>
+
+    {{ voltage }}V
+    {{ current }}A
+    {{ power }}W
+    {{ capacityTotal }}%
   </div>
 </main>
 

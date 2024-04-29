@@ -4,6 +4,7 @@ import { ConsoleLogger } from './logger.service';
 @Injectable({
   providedIn: 'root',
 })
+
 export class DataSnapshot {
   public readonly voltage: number;
   public readonly current: number;
@@ -14,6 +15,10 @@ export class DataSnapshot {
   public readonly cycles: number;
   public readonly timestamp: number;
   private logger: ConsoleLogger|undefined;
+
+  static default(): DataSnapshot {
+    return new DataSnapshot(new DataView(new ArrayBuffer(16)));
+  }
 
   constructor(value: DataView) {
     this.voltage = value.getUint16(4) * 0.01;
@@ -33,5 +38,16 @@ export class DataSnapshot {
     ConsoleLogger.debug('capacity total:', this.capacityTotal);
     ConsoleLogger.debug('capacity percent:', this.capacityPercent);
     ConsoleLogger.debug('cycles:', this.cycles);
+  }
+
+  toString() {
+    return {
+      voltage: this.voltage,
+      current: this.current,
+      power: this.power,
+      capacityNow: this.capacityNow,
+      capacityTotal: this.capacityTotal,
+      capacityPercent: this.capacityPercent
+    }
   }
 }
