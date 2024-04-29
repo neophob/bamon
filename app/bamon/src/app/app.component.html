@@ -50,7 +50,8 @@
       <button mat-flat-button color="warn" type="button" (click)="disconnect()">Disconnect</button>
     </div>
 
-    @if (connecting){
+    @if (connecting) {
+      <mat-divider></mat-divider>
       <mat-progress-bar mode="indeterminate"></mat-progress-bar>
     }
 
