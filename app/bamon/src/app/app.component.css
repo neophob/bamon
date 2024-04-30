@@ -8,3 +8,12 @@ mat-grid-tile {
   border: 1px solid #000;
   background-color: #FFF;
 }
+
+.button-row {
+  display: table-cell;
+  max-width: 600px;
+}
+
+.button-row .mat-mdc-button-base {
+  margin: 8px 16px 16px 0;
+}
