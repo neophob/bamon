@@ -4,9 +4,12 @@ html, body {
   margin: 0;
 }
 
+mat-card {
+  background-color: #FFF;
+}
+
 mat-grid-tile {
   border: 1px solid #000;
-  background-color: #FFF;
 }
 
 .button-row {
