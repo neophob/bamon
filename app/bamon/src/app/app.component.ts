@@ -16,6 +16,15 @@ import { BleBattery } from './datasource/ble';
         |      -11.4W      |       |
         | .|..|...||..|..| |.|..|..|
   479   +--------------------------+
+
+#define HISTORY_BAR_WIDTH 5
+#define HISTORY_BAR_SPACE 3
+
+const int WATT_ENTIRES(526 / (HISTORY_BAR_WIDTH + HISTORY_BAR_SPACE));    -> 65
+const int PERCENT_ENTIRES(273 / (HISTORY_BAR_WIDTH + HISTORY_BAR_SPACE)); -> 4
+
+TODO:
+- add circular buffer
 */
 
 @Component({

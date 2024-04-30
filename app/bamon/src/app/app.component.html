@@ -13,7 +13,7 @@
         [style.background]="'lightblue'">
         @if (connected) {
           <h1 class="display-1">
-            Voltage: {{ voltage.toFixed(1) }}V
+            {{ voltage.toFixed(1) }}V
           </h1>
         } @else { <h1>💤</h1>}
       </mat-grid-tile>
@@ -24,7 +24,7 @@
         [style.background]="'lightpink'">
         @if (connected) {
           <h1 class="display-1">
-            Current: {{ current.toFixed(1) }}A
+            {{ current.toFixed(1) }}A
           </h1>
         } @else { <h1>💤</h1>}
       </mat-grid-tile>
@@ -35,7 +35,7 @@
         [style.background]="'lightgreen'">
         @if (connected) {
           <h1 class="display-1">
-            Capacity: {{ capacityTotal }}%
+            {{ capacityTotal }}%
           </h1>
         } @else { <h1>💤</h1>}
       </mat-grid-tile>
@@ -46,7 +46,7 @@
         [style.background]="'#DDBDF1'">
         @if (connected) {
           <h1 class="display-1">
-            Power: {{ power.toFixed(1) }}W
+            {{ power.toFixed(1) }}W
           </h1>
         } @else { <h1>💤</h1>}
       </mat-grid-tile>
