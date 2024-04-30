@@ -1,6 +1,7 @@
 import { Component, effect } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { MatButtonModule } from '@angular/material/button';
+import { MatCard, MatCardContent, MatCardFooter } from '@angular/material/card';
 import { MatDivider } from '@angular/material/divider';
 import { MatProgressBar } from '@angular/material/progress-bar';
 import { MatGridListModule } from '@angular/material/grid-list';
@@ -20,7 +21,7 @@ import { BleBattery } from './datasource/ble';
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [RouterOutlet, MatButtonModule, MatProgressBar, MatDivider, MatGridListModule],
+  imports: [RouterOutlet, MatButtonModule, MatProgressBar, MatDivider, MatGridListModule, MatCard, MatCardContent, MatCardFooter],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css'
 })
