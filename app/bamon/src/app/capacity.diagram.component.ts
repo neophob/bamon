@@ -1,32 +1,39 @@
-import { Component, ElementRef, ViewChild, effect } from '@angular/core';
+import { ChangeDetectionStrategy, Component, ElementRef, ViewChild, effect, signal } from '@angular/core';
 import { RingBuffer } from './datasource/ring.buffer';
 import { BleBattery } from './datasource/ble';
 import Chart from 'chart.js/auto';
+import { DataSnapshot } from './datasource/datasnapshot';
 
 /*
 
 TODO:
-- draw diag
-  - https://stackblitz.com/edit/angular-charts-material-ui-tabs?file=src%2Fapp%2Fapp.component.ts
-  - https://www.chartjs.org/docs/latest/charts/bar.html
+- input signals
+
 */
 
 @Component({
   selector: 'capacity-diag',
   standalone: true,
   imports: [],
+  changeDetection: ChangeDetectionStrategy.OnPush,
   template: ` <canvas #canvas></canvas> `,
 })
 export class CapacityDiagramComponent {
   @ViewChild('canvas') canvas!: ElementRef<any>;
   private capacityPercent = new RingBuffer<number>(64);
   private chart: any = [];
+  signalData = signal<DataSnapshot | null>(null);
 
   constructor(private bleBattery: BleBattery) {
     effect(() => {
       const data = this.bleBattery.signalData();
       this.capacityPercent.add(data.capacityPercent);
-      console.log('this.capacityPercent', data.capacityPercent)
+      console.log('this.capacityPercent', data.capacityPercent);
+
+      const updatedData = this.capacityPercent.toArray();
+      this.chart.data.datasets[0].data = updatedData;
+      this.chart.data.labels = updatedData.map(() => '') as unknown[],
+      this.chart.update();
     });
   }
 

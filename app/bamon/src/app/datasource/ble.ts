@@ -1,5 +1,5 @@
 /// <reference types="web-bluetooth" />
-import { Injectable, Signal, WritableSignal, signal } from '@angular/core';
+import { Injectable, Signal, WritableSignal, computed, effect, signal } from '@angular/core';
 import { DataSnapshot } from './datasnapshot';
 import { ConsoleLogger } from './logger.service';
 
@@ -24,17 +24,19 @@ export class BleBattery {
   public signalData: WritableSignal<DataSnapshot> = signal(
     DataSnapshot.default(),
   );
+
   public connecting: WritableSignal<boolean> = signal(false);
   public connected: WritableSignal<boolean> = signal(false);
 
   // TODO remove me when not needed aka. simulation
   constructor() {
-    setInterval(() => {
-      const typedArray = new Uint8Array(new Array(16).fill(1).map((): number => Math.random()*300));
-      const b = new DataView(typedArray.buffer);
-      this.signalData.set(new DataSnapshot(b));
-    }, 300);
-
+      effect(() => {
+        setInterval(() => {
+          const typedArray = new Uint8Array(new Array(16).fill(1).map((): number => Math.random()*300));
+          const b = new DataView(typedArray.buffer);
+          this.signalData.set(new DataSnapshot(b));
+        }, 300);
+      });
   }
 
   async connect(): Promise<void> {
