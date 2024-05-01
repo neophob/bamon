@@ -30,13 +30,13 @@ export class DataSnapshot {
     );
     this.cycles = value.getUint16(12);
     this.timestamp = Date.now();
-    ConsoleLogger.debug('voltage', this.voltage);
+/*    ConsoleLogger.debug('voltage', this.voltage);
     ConsoleLogger.debug('current:', this.current);
     ConsoleLogger.debug('power:', this.power);
     ConsoleLogger.debug('capacity now:', this.capacityNow);
     ConsoleLogger.debug('capacity total:', this.capacityTotal);
     ConsoleLogger.debug('capacity percent:', this.capacityPercent);
-    ConsoleLogger.debug('cycles:', this.cycles);
+    ConsoleLogger.debug('cycles:', this.cycles);*/
   }
 
   toString() {

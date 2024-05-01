@@ -19,19 +19,20 @@ TODO:
 })
 export class CapacityDiagramComponent {
   @ViewChild('canvas') canvas!: ElementRef<any>;
-  powerBuffer = new RingBuffer<number>(64);
-  chart: any = [];
+  private capacityPercent = new RingBuffer<number>(64);
+  private chart: any = [];
 
   constructor(private bleBattery: BleBattery) {
     effect(() => {
       const data = this.bleBattery.signalData();
-      this.powerBuffer.add(data.power);
+      this.capacityPercent.add(data.capacityPercent);
+      console.log('this.capacityPercent', data.capacityPercent)
     });
   }
 
   ngAfterViewInit() {
-    const data = this.powerBuffer.toArray().concat([6, 342, 34, 34, 34]);
-
+    const data = this.capacityPercent.toArray();
+    console.log('JOJOJO ->',data)
     this.chart = new Chart(this.canvas.nativeElement, {
       type: 'bar',
       data: {

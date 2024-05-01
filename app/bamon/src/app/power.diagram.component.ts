@@ -26,14 +26,12 @@ export class PowerDiagramComponent {
     effect(() => {
       const data = this.bleBattery.signalData();
       this.powerBuffer.add(data.power);
+      console.log('this.powerBuffer', data.power)
     });
   }
 
   ngAfterViewInit() {
-    const data = this.powerBuffer
-      .toArray()
-      .concat([1, 100, 400, 2, 44, 43, 2, 1, 21, 333, 11, 23]);
-
+    const data = this.powerBuffer.toArray();
     this.chart = new Chart(this.canvas.nativeElement, {
       type: 'bar',
       data: {
