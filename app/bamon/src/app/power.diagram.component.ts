@@ -53,10 +53,23 @@ export class PowerDiagramComponent {
         }]
       },
       options: {
+        events: [],
         animation: false,
         scales: {
+          x: {
+            display: false,
+            border: {
+              display: false,
+              width: 0
+            }
+          },
           y: {
-            beginAtZero: true
+            beginAtZero: true,
+            display: false,
+            border: {
+              display: false,
+              width: 0
+            }
           }
         },
         plugins: {
