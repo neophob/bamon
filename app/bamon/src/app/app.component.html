@@ -10,46 +10,46 @@
       <mat-grid-tile
         [colspan]="1"
         [rowspan]="1"
-        [style.background]="'lightblue'">
-        @if (connected) {
+        [style.background]="'#ca9dd7'">
+<!--        @if (connected) {
           <h1 class="display-1">
             {{ voltage.toFixed(1) }}V
           </h1>
-        } @else { <h1>💤</h1>}
+        } @else { <h1>🚫</h1>}-->
         <power-diag></power-diag>
       </mat-grid-tile>
 
       <mat-grid-tile
         [colspan]="1"
         [rowspan]="1"
-        [style.background]="'lightpink'">
+        [style.background]="'#7fcbd7'">
         @if (connected) {
           <h1 class="display-1">
             {{ current.toFixed(1) }}A
           </h1>
-        } @else { <h1>💤</h1>}
+        } @else { <h1>🚫</h1>}
       </mat-grid-tile>
 
       <mat-grid-tile
         [colspan]="1"
         [rowspan]="2"
-        [style.background]="'lightgreen'">
+        [style.background]="'#857ebb'">
         @if (connected) {
           <h1 class="display-1">
             {{ capacityTotal }}%
           </h1>
-        } @else { <h1>💤</h1>}
+        } @else { <h1>🚫</h1>}
       </mat-grid-tile>
 
       <mat-grid-tile
         [colspan]="2"
         [rowspan]="1"
-        [style.background]="'#DDBDF1'">
+        [style.background]="'#facbd3'">
         @if (connected) {
           <h1 class="display-1">
             {{ power.toFixed(1) }}W
           </h1>
-        } @else { <h1>💤</h1>}
+        } @else { <h1>🚫</h1>}
       </mat-grid-tile>
     </mat-grid-list>
 

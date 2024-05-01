@@ -26,6 +26,8 @@ export class PowerDiagramComponent {
   chart: any = [];
 
   constructor(private bleBattery: BleBattery) {
+    console.log(this.powerBuffer.toArray().concat([1,100,400,2,44,43,2,1,21]))
+
     effect(() => {
       const data = this.bleBattery.signalData();
       this.powerBuffer.add(data.power);
@@ -37,32 +39,32 @@ export class PowerDiagramComponent {
     return
   }
 */
-
   ngAfterViewInit() {
+    const data = this.powerBuffer.toArray().concat([1,100,400,2,44,43,2,1,21]);
+
     this.chart = new Chart(this.canvas.nativeElement, {
       type: 'bar',
       data: {
-        labels: ['labels'] as unknown[],
+        labels: data.map(()=>'') as unknown[],
         datasets: [{
-          //label: ['My First Dataset'] as unknown,
-          data: this.powerBuffer.toArray(),
-          backgroundColor: [
-            'rgba(255, 99, 132, 0.2)',
-            'rgba(255, 159, 64, 0.2)',
-            'rgba(255, 205, 86, 0.2)',
-          ],
-          borderColor: [
-            'rgb(255, 99, 132)',
-            'rgb(255, 159, 64)',
-            'rgb(255, 205, 86)',
-          ],
+          label: 'Power Usage',
+          data,
           borderWidth: 1
         }]
       },
       options: {
+        animation: false,
         scales: {
           y: {
             beginAtZero: true
+          }
+        },
+        plugins: {
+          legend: {
+            display: false
+          },
+          tooltip: {
+            enabled: false
           }
         }
       },
