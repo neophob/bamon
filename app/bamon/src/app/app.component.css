@@ -34,3 +34,13 @@ mat-grid-tile {
 .button-row .mat-mdc-button-base {
   margin: 0px 16px 16px 0;
 }
+
+#graph{
+  position: relative;
+  height: 100%;
+  width: 100% !important;
+}
+
+canvas {
+  width: 100% !important;
+}

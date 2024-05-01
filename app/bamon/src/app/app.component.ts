@@ -6,6 +6,7 @@ import { MatDivider } from '@angular/material/divider';
 import { MatProgressBar } from '@angular/material/progress-bar';
 import { MatGridListModule } from '@angular/material/grid-list';
 import { BleBattery } from './datasource/ble';
+import { PowerDiagramComponent } from './power.diagram.component';
 
 /*
         0        263      526      799
@@ -28,7 +29,7 @@ const int PERCENT_ENTIRES(273 / (HISTORY_BAR_WIDTH + HISTORY_BAR_SPACE)); -> 4
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [RouterOutlet, MatButtonModule, MatProgressBar, MatDivider, MatGridListModule, MatCard, MatCardContent, MatCardFooter],
+  imports: [RouterOutlet, MatButtonModule, MatProgressBar, MatDivider, MatGridListModule, MatCard, MatCardContent, MatCardFooter, PowerDiagramComponent],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css'
 })

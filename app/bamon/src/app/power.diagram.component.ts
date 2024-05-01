@@ -1,6 +1,7 @@
-import { Component, effect } from '@angular/core';
+import { Component, ElementRef, ViewChild, effect } from '@angular/core';
 import { RingBuffer } from './datasource/ring.buffer';
 import { BleBattery } from './datasource/ble';
+import Chart from 'chart.js/auto';
 
 /*
 
@@ -11,15 +12,18 @@ TODO:
 */
 
 @Component({
-  selector: '',
+  selector: 'power-diag',
   standalone: true,
   imports: [],
-  templateUrl: './power.diagram.component.html',
-  styleUrl: './power.diagram.component.css'
+  template: `
+    <canvas #canvas></canvas>
+  `,
 })
 export class PowerDiagramComponent {
 
+  @ViewChild('canvas') canvas!: ElementRef<any>;
   powerBuffer = new RingBuffer<number>(64);
+  chart: any = [];
 
   constructor(private bleBattery: BleBattery) {
     effect(() => {
@@ -28,8 +32,41 @@ export class PowerDiagramComponent {
     });
   }
 
+/*
   get powerData(): number[] {
-    return this.powerBuffer.toArray();
+    return
+  }
+*/
+
+  ngAfterViewInit() {
+    this.chart = new Chart(this.canvas.nativeElement, {
+      type: 'bar',
+      data: {
+        labels: ['labels'] as unknown[],
+        datasets: [{
+          //label: ['My First Dataset'] as unknown,
+          data: this.powerBuffer.toArray(),
+          backgroundColor: [
+            'rgba(255, 99, 132, 0.2)',
+            'rgba(255, 159, 64, 0.2)',
+            'rgba(255, 205, 86, 0.2)',
+          ],
+          borderColor: [
+            'rgb(255, 99, 132)',
+            'rgb(255, 159, 64)',
+            'rgb(255, 205, 86)',
+          ],
+          borderWidth: 1
+        }]
+      },
+      options: {
+        scales: {
+          y: {
+            beginAtZero: true
+          }
+        }
+      },
+    });
   }
 
 }
