@@ -35,12 +35,6 @@ mat-grid-tile {
   margin: 0px 16px 16px 0;
 }
 
-#graph{
-  position: relative;
-  height: 100%;
-  width: 100% !important;
-}
-
-canvas {
+power-diag {
   width: 100% !important;
 }
