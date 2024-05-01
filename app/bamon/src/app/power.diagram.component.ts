@@ -18,6 +18,7 @@ TODO:
   styleUrl: './power.diagram.component.css'
 })
 export class PowerDiagramComponent {
+
   powerBuffer = new RingBuffer<number>(64);
 
   constructor(private bleBattery: BleBattery) {
@@ -27,8 +28,8 @@ export class PowerDiagramComponent {
     });
   }
 
-  public connect(): void {
-    // foo
+  get powerData(): number[] {
+    return this.powerBuffer.toArray();
   }
 
 }
