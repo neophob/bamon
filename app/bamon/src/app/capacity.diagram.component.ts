@@ -15,12 +15,9 @@ TODO:
   selector: 'capacity-diag',
   standalone: true,
   imports: [],
-  template: `
-    <canvas #canvas></canvas>
-  `,
+  template: ` <canvas #canvas></canvas> `,
 })
 export class CapacityDiagramComponent {
-
   @ViewChild('canvas') canvas!: ElementRef<any>;
   powerBuffer = new RingBuffer<number>(64);
   chart: any = [];
@@ -33,18 +30,20 @@ export class CapacityDiagramComponent {
   }
 
   ngAfterViewInit() {
-    const data = this.powerBuffer.toArray().concat([6,342,34,34,34]);
+    const data = this.powerBuffer.toArray().concat([6, 342, 34, 34, 34]);
 
     this.chart = new Chart(this.canvas.nativeElement, {
       type: 'bar',
       data: {
-        labels: data.map(()=>'') as unknown[],
-        datasets: [{
-          data,
-          borderWidth: 0,
-          backgroundColor: 'black',
-          barPercentage: 0.97,
-        }]
+        labels: data.map(() => '') as unknown[],
+        datasets: [
+          {
+            data,
+            borderWidth: 0,
+            backgroundColor: 'black',
+            barPercentage: 0.97,
+          },
+        ],
       },
       options: {
         events: [],
@@ -55,28 +54,27 @@ export class CapacityDiagramComponent {
             display: false,
             border: {
               display: false,
-              width: 0
-            }
+              width: 0,
+            },
           },
           y: {
             beginAtZero: true,
             display: false,
             border: {
               display: false,
-              width: 0
-            }
-          }
+              width: 0,
+            },
+          },
         },
         plugins: {
           legend: {
-            display: false
+            display: false,
           },
           tooltip: {
-            enabled: false
-          }
-        }
+            enabled: false,
+          },
+        },
       },
     });
   }
-
 }

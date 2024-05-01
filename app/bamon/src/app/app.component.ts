@@ -31,11 +31,19 @@ const int PERCENT_ENTIRES(273 / (HISTORY_BAR_WIDTH + HISTORY_BAR_SPACE)); -> 4
   selector: 'app-root',
   standalone: true,
   imports: [
-    RouterOutlet, MatButtonModule, MatProgressBar, MatDivider, MatGridListModule,
-    MatCard, MatCardContent, MatCardFooter, PowerDiagramComponent, CapacityDiagramComponent
+    RouterOutlet,
+    MatButtonModule,
+    MatProgressBar,
+    MatDivider,
+    MatGridListModule,
+    MatCard,
+    MatCardContent,
+    MatCardFooter,
+    PowerDiagramComponent,
+    CapacityDiagramComponent,
   ],
   templateUrl: './app.component.html',
-  styleUrl: './app.component.css'
+  styleUrl: './app.component.css',
 })
 export class AppComponent {
   voltage = 0;
@@ -59,11 +67,10 @@ export class AppComponent {
   }
 
   public connect(): Promise<void> {
-      return this.bleBattery.connect();
+    return this.bleBattery.connect();
   }
 
   public disconnect(): void {
     return this.bleBattery.disconnect();
   }
-
 }

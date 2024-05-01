@@ -4,7 +4,6 @@ import { ConsoleLogger } from './logger.service';
 @Injectable({
   providedIn: 'root',
 })
-
 export class DataSnapshot {
   public readonly voltage: number;
   public readonly current: number;
@@ -21,13 +20,13 @@ export class DataSnapshot {
 
   constructor(value: DataView) {
     //TODO round or use string?
-    this.voltage = (value.getUint16(4) * 0.01);
-    this.current = (value.getInt16(6) * 0.01);
+    this.voltage = value.getUint16(4) * 0.01;
+    this.current = value.getInt16(6) * 0.01;
     this.power = Math.round(this.voltage * this.current);
     this.capacityNow = value.getUint16(8) * 0.01;
     this.capacityTotal = value.getUint16(10) * 0.01;
     this.capacityPercent = Math.round(
-      (100.0 / this.capacityTotal) * this.capacityNow
+      (100.0 / this.capacityTotal) * this.capacityNow,
     );
     this.cycles = value.getUint16(12);
     this.timestamp = Date.now();
@@ -47,7 +46,7 @@ export class DataSnapshot {
       power: this.power,
       capacityNow: this.capacityNow,
       capacityTotal: this.capacityTotal,
-      capacityPercent: this.capacityPercent
-    }
+      capacityPercent: this.capacityPercent,
+    };
   }
 }

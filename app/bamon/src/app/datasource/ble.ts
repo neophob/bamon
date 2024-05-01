@@ -21,7 +21,9 @@ export class BleBattery {
   private rxCharacteristic?: BluetoothRemoteGATTCharacteristic;
   private txCharacteristic?: BluetoothRemoteGATTCharacteristic;
   private intervalId?: any;
-  public signalData: WritableSignal<DataSnapshot> = signal(DataSnapshot.default());
+  public signalData: WritableSignal<DataSnapshot> = signal(
+    DataSnapshot.default(),
+  );
   public connecting: WritableSignal<boolean> = signal(false);
   public connected: WritableSignal<boolean> = signal(false);
 
@@ -55,7 +57,7 @@ export class BleBattery {
       ConsoleLogger.debug('connected', this.server);
 
       this.service = await this.server.getPrimaryService(
-        aks1200Characteristics
+        aks1200Characteristics,
       );
       ConsoleLogger.debug('service', this.service);
 
@@ -74,7 +76,7 @@ export class BleBattery {
             this.connected.set(true);
             this.signalData.set(new DataSnapshot(characteristic.value));
           }
-        }
+        },
       );
       await this.rxCharacteristic.startNotifications();
       ConsoleLogger.debug('Notifications started');

@@ -15,12 +15,9 @@ TODO:
   selector: 'power-diag',
   standalone: true,
   imports: [],
-  template: `
-    <canvas #canvas></canvas>
-  `,
+  template: ` <canvas #canvas></canvas> `,
 })
 export class PowerDiagramComponent {
-
   @ViewChild('canvas') canvas!: ElementRef<any>;
   powerBuffer = new RingBuffer<number>(64);
   chart: any = [];
@@ -33,18 +30,22 @@ export class PowerDiagramComponent {
   }
 
   ngAfterViewInit() {
-    const data = this.powerBuffer.toArray().concat([1,100,400,2,44,43,2,1,21,333,11,23]);
+    const data = this.powerBuffer
+      .toArray()
+      .concat([1, 100, 400, 2, 44, 43, 2, 1, 21, 333, 11, 23]);
 
     this.chart = new Chart(this.canvas.nativeElement, {
       type: 'bar',
       data: {
-        labels: data.map(()=>'') as unknown[],
-        datasets: [{
-          data,
-          borderWidth: 0,
-          backgroundColor: 'black',
-          barPercentage: 0.97,
-        }]
+        labels: data.map(() => '') as unknown[],
+        datasets: [
+          {
+            data,
+            borderWidth: 0,
+            backgroundColor: 'black',
+            barPercentage: 0.97,
+          },
+        ],
       },
       options: {
         events: [],
@@ -55,28 +56,27 @@ export class PowerDiagramComponent {
             display: false,
             border: {
               display: false,
-              width: 0
-            }
+              width: 0,
+            },
           },
           y: {
             beginAtZero: true,
             display: false,
             border: {
               display: false,
-              width: 0
-            }
-          }
+              width: 0,
+            },
+          },
         },
         plugins: {
           legend: {
-            display: false
+            display: false,
           },
           tooltip: {
-            enabled: false
-          }
-        }
+            enabled: false,
+          },
+        },
       },
     });
   }
-
 }
