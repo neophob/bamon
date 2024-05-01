@@ -9,7 +9,7 @@ const requestBasicInformation = new Uint8Array([
   0xdd, 0xa5, 0x03, 0x00, 0xff, 0xfd, 0x77,
 ]);
 const delayFirstRequestS = 1;
-const dataFetcherIntervalS = 8;
+const dataFetcherIntervalS = 120;
 
 @Injectable({
   providedIn: 'root',
@@ -30,13 +30,13 @@ export class BleBattery {
 
   // TODO remove me when not needed aka. simulation
   constructor() {
-      effect(() => {
+/*      effect(() => {
         setInterval(() => {
           const typedArray = new Uint8Array(new Array(16).fill(1).map((): number => Math.random()*300));
           const b = new DataView(typedArray.buffer);
           this.signalData.set(new DataSnapshot(b));
         }, 300);
-      });
+      });*/
   }
 
   async connect(): Promise<void> {
