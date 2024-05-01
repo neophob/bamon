@@ -36,5 +36,7 @@ mat-grid-tile {
 }
 
 power-diag {
+  position: absolute;
   width: 100% !important;
+  bottom: 0;
 }
