@@ -35,8 +35,9 @@ mat-grid-tile {
   margin: 0px 16px 16px 0;
 }
 
-power-diag {
+capacity-diag, power-diag {
   position: absolute;
   width: 100% !important;
   bottom: 0;
 }
+

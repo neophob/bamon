@@ -12,14 +12,14 @@ TODO:
 */
 
 @Component({
-  selector: 'power-diag',
+  selector: 'capacity-diag',
   standalone: true,
   imports: [],
   template: `
     <canvas #canvas></canvas>
   `,
 })
-export class PowerDiagramComponent {
+export class CapacityDiagramComponent {
 
   @ViewChild('canvas') canvas!: ElementRef<any>;
   powerBuffer = new RingBuffer<number>(64);
@@ -33,7 +33,7 @@ export class PowerDiagramComponent {
   }
 
   ngAfterViewInit() {
-    const data = this.powerBuffer.toArray().concat([1,100,400,2,44,43,2,1,21,333,11,23]);
+    const data = this.powerBuffer.toArray().concat([6,342,34,34,34]);
 
     this.chart = new Chart(this.canvas.nativeElement, {
       type: 'bar',
