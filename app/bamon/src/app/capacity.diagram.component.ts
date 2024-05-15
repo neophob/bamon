@@ -24,10 +24,12 @@ export class CapacityDiagramComponent {
       this.capacityPercent.add(data.capacityPercent);
       console.log('CapacityDiagramComponent effect', data.capacityPercent);
 
-      const updatedData = this.capacityPercent.toArray();
-      this.chart.data.datasets[0].data = updatedData;
-      this.chart.data.labels = updatedData.map(() => '') as unknown[],
-      this.chart.update();
+      if (this.chart.data) {
+        const updatedData = this.capacityPercent.toArray();
+        this.chart.data.datasets[0].data = updatedData;
+        this.chart.data.labels = updatedData.map(() => '') as unknown[],
+        this.chart.update();
+      }
     });
   }
 

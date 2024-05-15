@@ -23,10 +23,12 @@ export class PowerDiagramComponent {
       this.powerBuffer.add(data.power);
       console.log('PowerDiagramComponent effect', data.power);
 
-      const updatedData = this.powerBuffer.toArray();
-      this.chart.data.datasets[0].data = updatedData;
-      this.chart.data.labels = updatedData.map(() => '') as unknown[],
-      this.chart.update();
+      if (this.chart.data) {
+        const updatedData = this.powerBuffer.toArray();
+        this.chart.data.datasets[0].data = updatedData;
+        this.chart.data.labels = updatedData.map(() => '') as unknown[],
+        this.chart.update();
+      }
     });
   }
 
