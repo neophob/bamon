@@ -71,6 +71,7 @@ export class AppComponent {
   }
 
   public connect(): Promise<void> {
+    this.bleBattery.disconnect();
     return this.bleBattery.connect();
   }
 
