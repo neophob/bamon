@@ -80,12 +80,13 @@ export class BleBattery {
 
           // validate data starts with 0xDD
           if (
-            characteristic.value &&
-            characteristic.value.getUint8(0) === 0xDD
+            characteristic.value?.getUint8(0) === 0xDD
           ) {
             this.connecting.set(false);
             this.connected.set(true);
             this.signalData.set(new DataSnapshot(characteristic.value));
+          } else {
+            ConsoleLogger.warning('Invalid characteristic.value:' + characteristic.value?.getUint8(0));
           }
         },
       );
@@ -122,6 +123,8 @@ export class BleBattery {
   }
 
   simulate(): void {
+    this.connecting.set(false);
+    this.connected.set(true);
     this.simulateId = setInterval(() => {
       const typedArray = new Uint8Array(new Array(16).fill(1).map((): number => Math.random()*300));
       this.signalData.set(new DataSnapshot(new DataView(typedArray.buffer)));
