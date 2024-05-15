@@ -4,19 +4,13 @@ import { BleBattery } from './datasource/ble';
 import Chart from 'chart.js/auto';
 import { DataSnapshot } from './datasource/datasnapshot';
 
-/*
-
-TODO:
-- input signals
-
-*/
 
 @Component({
   selector: 'capacity-diag',
   standalone: true,
   imports: [],
   changeDetection: ChangeDetectionStrategy.OnPush,
-  template: ` <canvas #canvas></canvas> `,
+  template: `<canvas #canvas></canvas>`,
 })
 export class CapacityDiagramComponent {
   @ViewChild('canvas') canvas!: ElementRef<any>;
@@ -28,7 +22,7 @@ export class CapacityDiagramComponent {
     effect(() => {
       const data = this.bleBattery.signalData();
       this.capacityPercent.add(data.capacityPercent);
-      console.log('add this.capacityPercent', data.capacityPercent);
+      console.log('CapacityDiagramComponent effect', data.capacityPercent);
 
       const updatedData = this.capacityPercent.toArray();
       this.chart.data.datasets[0].data = updatedData;
@@ -39,7 +33,7 @@ export class CapacityDiagramComponent {
 
   ngAfterViewInit() {
     const data = this.capacityPercent.toArray();
-    console.log('JOJOJO ->',data)
+    console.log('CapacityDiagramComponent ngAfterViewInit', data);
     this.chart = new Chart(this.canvas.nativeElement, {
       type: 'bar',
       data: {

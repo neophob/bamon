@@ -8,6 +8,7 @@ import { MatGridListModule } from '@angular/material/grid-list';
 import { BleBattery } from './datasource/ble';
 import { PowerDiagramComponent } from './power.diagram.component';
 import { CapacityDiagramComponent } from './capacity.diagram.component';
+import { LastUpdateTsLabel } from './last-update-ts.label.component';
 
 /*
         0        263      526      799
@@ -27,8 +28,6 @@ const int PERCENT_ENTIRES(273 / (HISTORY_BAR_WIDTH + HISTORY_BAR_SPACE)); -> 4
 
 
 https://angularexperts.ch/blog/angular-signal-inputs
-
-
 */
 
 @Component({
@@ -45,6 +44,7 @@ https://angularexperts.ch/blog/angular-signal-inputs
     MatCardFooter,
     PowerDiagramComponent,
     CapacityDiagramComponent,
+    LastUpdateTsLabel,
   ],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css',
@@ -76,5 +76,9 @@ export class AppComponent {
 
   public disconnect(): void {
     return this.bleBattery.disconnect();
+  }
+
+  public simulate(): void {
+    return this.bleBattery.simulate();
   }
 }

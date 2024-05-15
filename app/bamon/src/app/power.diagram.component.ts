@@ -9,7 +9,7 @@ import { DataSnapshot } from './datasource/datasnapshot';
   standalone: true,
   imports: [],
   changeDetection: ChangeDetectionStrategy.OnPush,
-  template: ` <canvas #canvas></canvas> `,
+  template: `<canvas #canvas></canvas>`,
 })
 export class PowerDiagramComponent {
   @ViewChild('canvas') canvas!: ElementRef<any>;
@@ -21,7 +21,7 @@ export class PowerDiagramComponent {
     effect(() => {
       const data = this.bleBattery.signalData();
       this.powerBuffer.add(data.power);
-      console.log('this.powerBuffer', data.power);
+      console.log('PowerDiagramComponent effect', data.power);
 
       const updatedData = this.powerBuffer.toArray();
       this.chart.data.datasets[0].data = updatedData;
@@ -32,6 +32,7 @@ export class PowerDiagramComponent {
 
   ngAfterViewInit() {
     const data = this.powerBuffer.toArray();
+    console.log('PowerDiagramComponent ngAfterViewInit', data);
     this.chart = new Chart(this.canvas.nativeElement, {
       type: 'bar',
       data: {

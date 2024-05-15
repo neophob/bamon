@@ -7,6 +7,9 @@
       <button mat-flat-button color="warn" type="button" (click)="disconnect()">
         Disconnect
       </button>
+      <button mat-stroked-button type="button" (click)="simulate()">
+        Simulate
+      </button>
     </div>
 
     <mat-grid-list cols="3" rowHeight="48%">
@@ -27,6 +30,7 @@
       </mat-grid-tile>
 
       <mat-grid-tile [colspan]="1" [rowspan]="2" [style.background]="'#857ebb'">
+        <last-update-ts></last-update-ts>
         @if (connected) {
           <h1 class="display-1">{{ capacityTotal }}%</h1>
         } @else {

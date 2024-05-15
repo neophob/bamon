@@ -21,6 +21,7 @@ export class BleBattery {
   private rxCharacteristic?: BluetoothRemoteGATTCharacteristic;
   private txCharacteristic?: BluetoothRemoteGATTCharacteristic;
   private intervalId?: any;
+  private simulateId?: any;
   public signalData: WritableSignal<DataSnapshot> = signal(
     DataSnapshot.default(),
   );
@@ -30,13 +31,9 @@ export class BleBattery {
 
   // TODO remove me when not needed aka. simulation
   constructor() {
-/*      effect(() => {
-        setInterval(() => {
-          const typedArray = new Uint8Array(new Array(16).fill(1).map((): number => Math.random()*300));
-          const b = new DataView(typedArray.buffer);
-          this.signalData.set(new DataSnapshot(b));
-        }, 300);
-      });*/
+    effect(() => {
+      this.simulateId = undefined;
+    });
   }
 
   async connect(): Promise<void> {
@@ -80,9 +77,11 @@ export class BleBattery {
         (event) => {
           const characteristic =
             event.target as BluetoothRemoteGATTCharacteristic;
+
+          // validate data starts with 0xDD
           if (
             characteristic.value &&
-            characteristic.value.getUint8(0) === 0xdd
+            characteristic.value.getUint8(0) === 0xDD
           ) {
             this.connecting.set(false);
             this.connected.set(true);
@@ -110,6 +109,7 @@ export class BleBattery {
   }
 
   disconnect(): void {
+    clearInterval(this.simulateId);
     clearInterval(this.intervalId);
     if (this.bleDevice?.gatt?.connected) {
       ConsoleLogger.debug('Disconnect gatt server');
@@ -119,6 +119,13 @@ export class BleBattery {
     this.bleDevice?.gatt?.disconnect();
     this.connecting.set(false);
     this.connected.set(false);
+  }
+
+  simulate(): void {
+    this.simulateId = setInterval(() => {
+      const typedArray = new Uint8Array(new Array(16).fill(1).map((): number => Math.random()*300));
+      this.signalData.set(new DataSnapshot(new DataView(typedArray.buffer)));
+    }, 300)
   }
 
   async requestBasicInformation(): Promise<void> {

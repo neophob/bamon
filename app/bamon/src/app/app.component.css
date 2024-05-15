@@ -42,3 +42,9 @@ power-diag {
   width: 100% !important;
   bottom: 0;
 }
+
+last-update-ts {
+  position: absolute;
+  width: 100% !important;
+  top: 0;
+}
