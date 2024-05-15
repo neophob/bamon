@@ -8,11 +8,11 @@ import { BleBattery } from './datasource/ble';
   standalone: true,
   imports: [],
   changeDetection: ChangeDetectionStrategy.OnPush,
-  template: `<b>Last Update: never</b>`,
+  template: `<b> 1 {{ lastTimestamp }} </b>`,
 })
 export class LastUpdateTsLabel {
-  lastTimestamp = 'never';
-  @ViewChild('last-update-ts') lastUpdateTs!: ElementRef<any>;
+  //@ViewChild('lastTimestamp') lastUpdateTs!: ElementRef<any>;
+  lastTimestamp = 'never1';
   signalData = signal<DataSnapshot | null>(null);
 
   constructor(private bleBattery: BleBattery) {
@@ -20,11 +20,13 @@ export class LastUpdateTsLabel {
       const data = this.bleBattery.signalData();
       this.lastTimestamp = new Date().toLocaleTimeString();
       console.log('Last update', this.lastTimestamp);
+      //console.dir('_______', this.lastUpdateTs?.nativeElement);
     });
   }
-
+/*
   ngAfterViewInit() {
     //this.lastUpdateTs.nativeElement = 'fff'
+
     console.log('LastUpdateTs ngAfterViewInit');
-  }
+  }*/
 }
