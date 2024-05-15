@@ -25,7 +25,7 @@ export class DataSnapshot {
     this.power = Math.round(this.voltage * this.current);
     this.capacityNow = value.getUint16(8) * 0.01;
     this.capacityTotal = value.getUint16(10) * 0.01;
-    this.capacityPercent = Math.round(
+    this.capacityPercent = this.capacityTotal === 0 ? 0 : Math.round(
       (100.0 / this.capacityTotal) * this.capacityNow,
     );
     this.cycles = value.getUint16(12);

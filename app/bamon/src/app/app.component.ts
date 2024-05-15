@@ -25,6 +25,10 @@ import { CapacityDiagramComponent } from './capacity.diagram.component';
 const int WATT_ENTIRES(526 / (HISTORY_BAR_WIDTH + HISTORY_BAR_SPACE));    -> 65
 const int PERCENT_ENTIRES(273 / (HISTORY_BAR_WIDTH + HISTORY_BAR_SPACE)); -> 4
 
+
+https://angularexperts.ch/blog/angular-signal-inputs
+
+
 */
 
 @Component({

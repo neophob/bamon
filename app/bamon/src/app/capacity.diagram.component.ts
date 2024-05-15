@@ -28,7 +28,7 @@ export class CapacityDiagramComponent {
     effect(() => {
       const data = this.bleBattery.signalData();
       this.capacityPercent.add(data.capacityPercent);
-      console.log('this.capacityPercent', data.capacityPercent);
+      console.log('add this.capacityPercent', data.capacityPercent);
 
       const updatedData = this.capacityPercent.toArray();
       this.chart.data.datasets[0].data = updatedData;
