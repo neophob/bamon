@@ -14,7 +14,7 @@ import { DataSnapshot } from './datasource/datasnapshot';
 })
 export class CapacityDiagramComponent {
   @ViewChild('canvas') canvas!: ElementRef<any>;
-  private capacityPercent = new RingBuffer<number>(64);
+  private capacityPercent = new RingBuffer<number>(32);
   private chart: any = [];
   signalData = signal<DataSnapshot | null>(null);
 
@@ -63,7 +63,7 @@ export class CapacityDiagramComponent {
           },
           y: {
             beginAtZero: true,
-            display: false,
+            display: true,
             border: {
               display: false,
               width: 0,

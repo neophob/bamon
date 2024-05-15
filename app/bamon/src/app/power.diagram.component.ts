@@ -62,7 +62,7 @@ export class PowerDiagramComponent {
           },
           y: {
             beginAtZero: true,
-            display: false,
+            display: true,
             border: {
               display: false,
               width: 0,
