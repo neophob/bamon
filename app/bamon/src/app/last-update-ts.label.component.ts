@@ -1,5 +1,4 @@
-import { ChangeDetectionStrategy, Component, ElementRef, ViewChild, effect, signal } from '@angular/core';
-import { RingBuffer } from './datasource/ring.buffer';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, effect, signal } from '@angular/core';
 import { DataSnapshot } from './datasource/datasnapshot';
 import { BleBattery } from './datasource/ble';
 
@@ -8,25 +7,21 @@ import { BleBattery } from './datasource/ble';
   standalone: true,
   imports: [],
   changeDetection: ChangeDetectionStrategy.OnPush,
-  template: `<b> 1 {{ lastTimestamp }} </b>`,
+  template: `<b>{{ counter }} updates, last: {{ lastTimestamp }}</b>`,
 })
 export class LastUpdateTsLabel {
   //@ViewChild('lastTimestamp') lastUpdateTs!: ElementRef<any>;
-  lastTimestamp = 'never1';
+  lastTimestamp = 'never';
+  counter = 0;
   signalData = signal<DataSnapshot | null>(null);
 
-  constructor(private bleBattery: BleBattery) {
+  constructor(private bleBattery: BleBattery, private cdr: ChangeDetectorRef) {
     effect(() => {
       const data = this.bleBattery.signalData();
       this.lastTimestamp = new Date().toLocaleTimeString();
-      console.log('Last update', this.lastTimestamp);
-      //console.dir('_______', this.lastUpdateTs?.nativeElement);
+      this.counter++;
+      this.cdr.detectChanges();
     });
   }
-/*
-  ngAfterViewInit() {
-    //this.lastUpdateTs.nativeElement = 'fff'
 
-    console.log('LastUpdateTs ngAfterViewInit');
-  }*/
 }
