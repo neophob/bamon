@@ -13,7 +13,7 @@
     </div>
 
     <mat-grid-list cols="3" rowHeight="48%">
-      <mat-grid-tile [colspan]="1" [rowspan]="1" [style.background]="'#ca9dd7'">
+      <mat-grid-tile [colspan]="1" [rowspan]="1" [style.background]="'#B4B4B8'">
         @if (connected) {
           <h1 class="display-1">{{ voltage.toFixed(1) }}V</h1>
         } @else {
@@ -21,7 +21,7 @@
         }
       </mat-grid-tile>
 
-      <mat-grid-tile [colspan]="1" [rowspan]="1" [style.background]="'#7fcbd7'">
+      <mat-grid-tile [colspan]="1" [rowspan]="1" [style.background]="'#C7C8CC'">
         @if (connected) {
           <h1 class="display-1">{{ current.toFixed(1) }}A</h1>
         } @else {
@@ -29,7 +29,7 @@
         }
       </mat-grid-tile>
 
-      <mat-grid-tile [colspan]="1" [rowspan]="2" [style.background]="'#857ebb'">
+      <mat-grid-tile [colspan]="1" [rowspan]="2" [style.background]="'#E3E1D9'">
         <last-update-ts></last-update-ts>
         @if (connected) {
           <h1 class="display-1">{{ capacityTotal }}%</h1>
@@ -39,7 +39,7 @@
         <capacity-diag></capacity-diag>
       </mat-grid-tile>
 
-      <mat-grid-tile [colspan]="2" [rowspan]="1" [style.background]="'#facbd3'">
+      <mat-grid-tile [colspan]="2" [rowspan]="1" [style.background]="'#F2EFE5'">
         @if (connected) {
           <h1 class="display-1">{{ power.toFixed(1) }}W</h1>
         } @else {

@@ -44,14 +44,14 @@ export class CapacityDiagramComponent {
           {
             data,
             borderWidth: 0,
-            backgroundColor: 'black',
+            backgroundColor: '#303030',
             barPercentage: 0.97,
           },
         ],
       },
       options: {
         events: [],
-        aspectRatio: 4,
+        aspectRatio: 2.5,
         animation: false,
         scales: {
           x: {
