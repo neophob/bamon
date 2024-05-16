@@ -12,7 +12,7 @@ import { BleBattery } from './datasource/ble';
 export class LastUpdateTsLabel {
   //@ViewChild('lastTimestamp') lastUpdateTs!: ElementRef<any>;
   lastTimestamp = 'never';
-  counter = 0;
+  counter = -1;
   signalData = signal<DataSnapshot | null>(null);
 
   constructor(private bleBattery: BleBattery, private cdr: ChangeDetectorRef) {

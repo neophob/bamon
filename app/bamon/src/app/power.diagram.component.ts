@@ -13,7 +13,7 @@ import { DataSnapshot } from './datasource/datasnapshot';
 })
 export class PowerDiagramComponent {
   @ViewChild('canvas') canvas!: ElementRef<any>;
-  powerBuffer = new RingBuffer<number>(64);
+  powerBuffer = new RingBuffer<number>(60);
   chart: any = [];
   signalData = signal<DataSnapshot | null>(null);
 

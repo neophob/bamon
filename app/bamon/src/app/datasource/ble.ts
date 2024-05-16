@@ -103,6 +103,8 @@ export class BleBattery {
       this.intervalId = setInterval(() => {
         this.requestBasicInformation();
       }, dataFetcherIntervalS * 1000);
+      ConsoleLogger.debug('data fetcher intervall:', dataFetcherIntervalS * 1000);
+
     } catch (error) {
       ConsoleLogger.error('connection failed!', error);
       this.disconnect();
@@ -112,6 +114,8 @@ export class BleBattery {
   disconnect(): void {
     clearInterval(this.simulateId);
     clearInterval(this.intervalId);
+    ConsoleLogger.debug('Clear Interval');
+
     if (this.bleDevice?.gatt?.connected) {
       ConsoleLogger.debug('Disconnect gatt server');
     } else {
