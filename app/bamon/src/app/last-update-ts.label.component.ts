@@ -7,10 +7,9 @@ import { BleBattery } from './datasource/ble';
   standalone: true,
   imports: [],
   changeDetection: ChangeDetectionStrategy.OnPush,
-  template: `<b>{{ counter }} updates, last: {{ lastTimestamp }}</b>`,
+  template: `<p style="text-align:center">{{ counter }} updates, last: {{ lastTimestamp }}</p>`,
 })
 export class LastUpdateTsLabel {
-  //@ViewChild('lastTimestamp') lastUpdateTs!: ElementRef<any>;
   lastTimestamp = 'never';
   counter = -1;
   signalData = signal<DataSnapshot | null>(null);
@@ -18,7 +17,9 @@ export class LastUpdateTsLabel {
   constructor(private bleBattery: BleBattery, private cdr: ChangeDetectorRef) {
     effect(() => {
       const data = this.bleBattery.signalData();
-      this.lastTimestamp = new Date().toLocaleTimeString();
+      if (this.counter >= 0) {
+        this.lastTimestamp = new Date().toLocaleTimeString();
+      }
       this.counter++;
       this.cdr.detectChanges();
     });
