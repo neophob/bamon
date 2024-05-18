@@ -3,6 +3,7 @@ import { RingBuffer } from './datasource/ring.buffer';
 import { BleBattery } from './datasource/ble';
 import Chart from 'chart.js/auto';
 import { DataSnapshot } from './datasource/datasnapshot';
+import { ConsoleLogger } from './datasource/logger.service';
 
 
 @Component({
@@ -22,7 +23,7 @@ export class CapacityDiagramComponent {
     effect(() => {
       const data = this.bleBattery.signalData();
       this.capacityPercent.add(data.capacityPercent);
-      console.log('CapacityDiagramComponent effect', data.capacityPercent);
+      ConsoleLogger.debug('CapacityDiagramComponent effect', data.capacityPercent);
 
       if (this.chart.data) {
         const updatedData = this.capacityPercent.toArray();
@@ -35,7 +36,7 @@ export class CapacityDiagramComponent {
 
   ngAfterViewInit() {
     const data = this.capacityPercent.toArray();
-    console.log('CapacityDiagramComponent ngAfterViewInit', data);
+    ConsoleLogger.debug('CapacityDiagramComponent ngAfterViewInit', data);
     this.chart = new Chart(this.canvas.nativeElement, {
       type: 'bar',
       data: {

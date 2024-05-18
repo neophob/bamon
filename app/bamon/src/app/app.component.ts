@@ -9,6 +9,7 @@ import { BleBattery } from './datasource/ble';
 import { PowerDiagramComponent } from './power.diagram.component';
 import { CapacityDiagramComponent } from './capacity.diagram.component';
 import { LastUpdateTsLabel } from './last-update-ts.label.component';
+import { ConsoleLogger } from './datasource/logger.service';
 
 /*
         0        263      526      799
@@ -60,7 +61,7 @@ export class AppComponent {
   constructor(private bleBattery: BleBattery) {
     effect(() => {
       const data = this.bleBattery.signalData();
-      console.log('The bleBattery.signalData is:', data);
+      ConsoleLogger.debug('The bleBattery.signalData is:', data);
       this.voltage = data.voltage;
       this.current = data.current;
       this.power = data.power;

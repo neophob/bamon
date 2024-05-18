@@ -80,13 +80,13 @@ export class BleBattery {
 
           // validate data starts with 0xDD
           if (
-            characteristic.value?.getUint8(0) === 0xDD
+              characteristic.value?.getUint8(0) === 0xDD
           ) {
             this.connecting.set(false);
             this.connected.set(true);
             this.signalData.set(new DataSnapshot(characteristic.value));
           } else {
-            ConsoleLogger.warning('Invalid characteristic.value:' + characteristic.value?.getUint8(0));
+            ConsoleLogger.warning('Invalid characteristic.value: ' + characteristic.value?.getUint8(0));
           }
         },
       );
@@ -97,13 +97,15 @@ export class BleBattery {
       ConsoleLogger.debug('txCharacteristic', this.txCharacteristic);
 
       setTimeout(() => {
+        ConsoleLogger.debug('request initial BasicInformation');
         this.requestBasicInformation();
       }, delayFirstRequestS * 1000);
 
       this.intervalId = setInterval(() => {
+        ConsoleLogger.debug('request BasicInformation');
         this.requestBasicInformation();
       }, dataFetcherIntervalS * 1000);
-      ConsoleLogger.debug('data fetcher intervall:', dataFetcherIntervalS * 1000);
+      ConsoleLogger.debug('data fetcher interval:', dataFetcherIntervalS * 1000);
 
     } catch (error) {
       ConsoleLogger.error('connection failed!', error);

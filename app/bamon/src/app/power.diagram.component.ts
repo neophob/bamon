@@ -3,6 +3,7 @@ import { RingBuffer } from './datasource/ring.buffer';
 import { BleBattery } from './datasource/ble';
 import Chart from 'chart.js/auto';
 import { DataSnapshot } from './datasource/datasnapshot';
+import { ConsoleLogger } from './datasource/logger.service';
 
 @Component({
   selector: 'power-diag',
@@ -21,7 +22,7 @@ export class PowerDiagramComponent {
     effect(() => {
       const data = this.bleBattery.signalData();
       this.powerBuffer.add(data.power);
-      console.log('PowerDiagramComponent effect', data.power);
+      ConsoleLogger.debug('PowerDiagramComponent effect', data.power);
 
       if (this.chart.data) {
         const updatedData = this.powerBuffer.toArray();
@@ -34,7 +35,7 @@ export class PowerDiagramComponent {
 
   ngAfterViewInit() {
     const data = this.powerBuffer.toArray();
-    console.log('PowerDiagramComponent ngAfterViewInit', data);
+    ConsoleLogger.debug('PowerDiagramComponent ngAfterViewInit', data);
     this.chart = new Chart(this.canvas.nativeElement, {
       type: 'bar',
       data: {

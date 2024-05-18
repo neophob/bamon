@@ -4,15 +4,21 @@ import { Injectable } from '@angular/core';
   providedIn: 'root',
 })
 export class ConsoleLogger {
+
+  static _log(level: string, template: string, ...optionalParams: any[]):void {
+    const now = new Date().toLocaleTimeString();
+    console.log(`${now} - ${level}: ${template}`, ...optionalParams);
+  }
+
   static debug(template: string, ...optionalParams: any[]): void {
-    console.log('D: ' + template, ...optionalParams);
+    ConsoleLogger._log('D', template, optionalParams);
   }
 
   static warning(template: string, ...optionalParams: any[]): void {
-    console.warn('W: ' + template, ...optionalParams);
+    ConsoleLogger._log('W', template, optionalParams);
   }
 
   static error(template: string, ...optionalParams: any[]): void {
-    console.error('E: ' + template, ...optionalParams);
+    ConsoleLogger._log('E', template, optionalParams);
   }
 }
