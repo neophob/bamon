@@ -1,6 +1,6 @@
 {
   "configVersion": 1,
-  "timestamp": 1716046344369,
+  "timestamp": 1716070358927,
   "index": "/bamon/index.html",
   "assetGroups": [
     {
@@ -13,7 +13,7 @@
       "urls": [
         "/bamon/favicon.ico",
         "/bamon/index.html",
-        "/bamon/main-ONYQSF4K.js",
+        "/bamon/main-NPYUMYJO.js",
         "/bamon/manifest.webmanifest",
         "/bamon/polyfills-RT5I6R6G.js",
         "/bamon/styles-RSAQMOR5.css"
@@ -51,8 +51,8 @@
     "/bamon/assets/icons/icon-72x72.png": "aa88a6096bd973be7f6d7a5489bfa6bc2463f8c4",
     "/bamon/assets/icons/icon-96x96.png": "7fb8f59c30ce2ff12c700321a0b39e14b3dc8f95",
     "/bamon/favicon.ico": "9c39f434fe1261f68c5e3eefdf734630d99c5670",
-    "/bamon/index.html": "b060b04e816dbe39f0b35053a72d26417085b586",
-    "/bamon/main-ONYQSF4K.js": "015dacff8ceb19080db75f964d977f0104b359b4",
+    "/bamon/index.html": "238c7fe17015be1cc866fb741bead5aefdcd067a",
+    "/bamon/main-NPYUMYJO.js": "97d41d9a6e745b4ddea4564c2c702ecb22ed745f",
     "/bamon/manifest.webmanifest": "c2579121232af026ea3a93917fb15304c05271e9",
     "/bamon/polyfills-RT5I6R6G.js": "fe9f024576f21ff6314cf8f8332cde58b9a12416",
     "/bamon/styles-RSAQMOR5.css": "571732b9816b033684ccda6c5cd61da22fd3b43d"
